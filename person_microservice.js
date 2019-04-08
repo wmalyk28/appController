@@ -8,7 +8,6 @@ const bodyParser = require("body-parser");
 const server = http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'content-type');
-  
   res.setHeader('Content-Type', 'application/json');
   
   if (req.method == 'OPTIONS') {
@@ -27,7 +26,7 @@ const server = http.createServer((req, res) => {
     });
 
     req.on('end', function () {
-        var post = qs.parse(body);
+        var post = eval("("+body+")");
         
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
@@ -65,8 +64,7 @@ const server = http.createServer((req, res) => {
           res.end(JSON.stringify(response));
           
         });      
-        
-    });
+       
   }else{
     res.statusCode = 405;
     res.end();
