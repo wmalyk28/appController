@@ -5,18 +5,18 @@ var qs = require('querystring');
 const hostname = '0.0.0.0';
 const port = 3006;
 const bodyParser = require("body-parser");
-const server = http.createServer((req, res0) => {
+const server = http.createServer((req0, res0) => {
   res0.setHeader('Access-Control-Allow-Origin', '*');
   res0.setHeader('Access-Control-Allow-Headers', 'content-type');
   res0.setHeader('Content-Type', 'application/json');
   
-  if (req.method == 'OPTIONS') {
+  if (req0.method == 'OPTIONS') {
     res0.statusCode = 200;
     res0.end();
-  }else if (req.method == 'POST') {
+  }else if (req0.method == 'POST') {
     var body = '';
 
-    req.on('data', function (data) {
+    req0.on('data', function (data) {
         body += data;
 
         // Too much POST data, kill the connection!
@@ -25,7 +25,7 @@ const server = http.createServer((req, res0) => {
             request.connection.destroy();
     });
 
-    req.on('end', function () {
+    req0.on('end', function () {
         var post = eval("("+body+")");
         
         res0.statusCode = 200;
@@ -44,6 +44,41 @@ const server = http.createServer((req, res0) => {
         
         var person = people[post.id * 1];
       
+        if(person){
+            var options = {
+                'method': 'POST',
+                'hostname': '35.193.70.238',
+                'path': '/api/fabric/AddressBook/GetDetails',
+                'headers': {
+                  'X-Auth-Token': 'd2de0bf9-fc03-44f6-89cc-49aff9b9db4c'
+                }
+              };
+        
+            var req = http.request(options, function (res) {
+                var chunks = [];
+              
+                res.on("data", function (chunk) {
+                  chunks.push(chunk);
+                });
+              
+                res.on("end", function (chunk) {
+                  var body = Buffer.concat(chunks);
+                  console.log(body.toString());
+                  person.address = body;
+                  res0.end(JSON.stringify(person));
+                });
+              
+                res.on("error", function (error) {
+                  console.error(error);
+                });
+              });
+            var postDataIn =  "{\n  id: " + person.address + "\n}";
+            req.write(postData);
+            req.end();
+            return;
+        }
+        
+        
         res0.end(JSON.stringify(person));
      });        
   }else{
