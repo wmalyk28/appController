@@ -47,11 +47,9 @@ const server = http.createServer((req0, res0) => {
         if(person){
             var options = {
                 'method': 'POST',
-                'hostname': '35.193.70.238',
-                'path': '/api/fabric/AddressBook/GetDetails',
-                'headers': {
-                  'X-Auth-Token': 'd2de0bf9-fc03-44f6-89cc-49aff9b9db4c'
-                }
+                'hostname': 'localhost',
+                'port': '8080',
+                'path': '/api/fabric/AddressBook/GetDetails'
               };
         
             var req = http.request(options, function (res) {
