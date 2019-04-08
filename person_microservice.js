@@ -30,41 +30,22 @@ const server = http.createServer((req, res) => {
         
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        
-        /*
-        var MongoClient = require('mongodb').MongoClient;
-        var url = "mongodb://localhost:27017/";
+
+        var response = null;
       
-        MongoClient.connect(url, {useNewUrlParser: true}, function(err, db) {
-            if (err) throw err;
-            var dbo = db.db("key-press");
-            
-            var myobj = post;
-            
-            dbo.collection("obj").insertOne(myobj, function(err, result) {
-              if (err) throw err;
-              
-              var isValid = Math.round(Math.random()) == 0;
-              
-              response = {
-                isValid: isValid,
-                node: myobj
-              }
-              res.end(JSON.stringify(response));
-              
-              db.close();
-              
-            });
-          */
-          
-          response = {
-                isValid: true,
-                node: "Something"
-          }
-          res.end(JSON.stringify(response));
-          
-        });      
-       
+        //Simple switch statement, simulating a database pull
+        var people = [
+          {name: "Joe Smith", address: 1},
+          {name: "Jack Smith", address: 1},
+          {name: "Jim Smith", address: 3},          
+          {name: "Jessica Smith", address: 2},          
+          {name: "Jerry Smith", address: 1}
+        ]
+        
+        var person = people[ost.id * 1];
+      
+        res.end(JSON.stringify(person));
+     });        
   }else{
     res.statusCode = 405;
     res.end();
