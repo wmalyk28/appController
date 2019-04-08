@@ -30,41 +30,37 @@ const server = http.createServer((req, res) => {
         
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        
-        /*
-        var MongoClient = require('mongodb').MongoClient;
-        var url = "mongodb://localhost:27017/";
+
+        var response = null;
       
-        MongoClient.connect(url, {useNewUrlParser: true}, function(err, db) {
-            if (err) throw err;
-            var dbo = db.db("key-press");
-            
-            var myobj = post;
-            
-            dbo.collection("obj").insertOne(myobj, function(err, result) {
-              if (err) throw err;
-              
-              var isValid = Math.round(Math.random()) == 0;
-              
-              response = {
-                isValid: isValid,
-                node: myobj
-              }
-              res.end(JSON.stringify(response));
-              
-              db.close();
-              
-            });
-          */
-          
-          response = {
-                isValid: true,
-                node: "Something"
-          }
-          res.end(JSON.stringify(response));
-          
-        });      
-       
+        //Simple switch statement, simulating a database pull
+        if(post.id * 1 == 1){
+            response = {
+              street: "Address 1",
+              city: "New York",
+              state: "NY",
+              zip: "92312"
+            }
+        }
+        if(post.id * 1 == 2){
+            response = {
+              street: "Address 2",
+              city: "Chicago",
+              state: "IL",
+              zip: "24332"
+            }
+        }
+        if(post.id * 1 == 3){
+            response = {
+              street: "Address 3",
+              city: "San Francisco",
+              state: "CA",
+              zip: "54231"
+            }
+        }
+      
+        res.end(JSON.stringify(response));
+     });        
   }else{
     res.statusCode = 405;
     res.end();
