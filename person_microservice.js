@@ -42,7 +42,7 @@ const server = http.createServer((req, res) => {
           {name: "Jerry Smith", address: 1}
         ]
         
-        var person = people[ost.id * 1];
+        var person = people[post.id * 1];
       
         res.end(JSON.stringify(person));
      });        
