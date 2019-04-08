@@ -65,6 +65,7 @@ const server = http.createServer((req0, res0) => {
                   var body = Buffer.concat(chunks);
                   console.log(body.toString());
                   person.address = body;
+                  person.x = "J";
                   res0.end(JSON.stringify(person));
                 });
               
