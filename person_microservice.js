@@ -5,14 +5,14 @@ var qs = require('querystring');
 const hostname = '0.0.0.0';
 const port = 3006;
 const bodyParser = require("body-parser");
-const server = http.createServer((req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Headers', 'content-type');
-  res.setHeader('Content-Type', 'application/json');
+const server = http.createServer((req, res0) => {
+  res0.setHeader('Access-Control-Allow-Origin', '*');
+  res0.setHeader('Access-Control-Allow-Headers', 'content-type');
+  res0.setHeader('Content-Type', 'application/json');
   
   if (req.method == 'OPTIONS') {
-    res.statusCode = 200;
-    res.end();
+    res0.statusCode = 200;
+    res0.end();
   }else if (req.method == 'POST') {
     var body = '';
 
@@ -28,8 +28,8 @@ const server = http.createServer((req, res) => {
     req.on('end', function () {
         var post = eval("("+body+")");
         
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
+        res0.statusCode = 200;
+        res0.setHeader('Content-Type', 'application/json');
 
         var response = null;
       
@@ -44,11 +44,11 @@ const server = http.createServer((req, res) => {
         
         var person = people[post.id * 1];
       
-        res.end(JSON.stringify(person));
+        res0.end(JSON.stringify(person));
      });        
   }else{
-    res.statusCode = 405;
-    res.end();
+    res0.statusCode = 405;
+    res0.end();
   } 
 });
 
